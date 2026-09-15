@@ -1,0 +1,16 @@
+# Core ML/runtime stack
+datasets==5.0.1
+accelerate==1.14.0
+safetensors==0.8.0
+
+# Video, data, and configuration
+numpy==2.5.2
+scipy==1.18.1
+opencv-python-headless==5.0.0.93
+PyYAML==6.0.3
+
+# Notebook and test tooling
+jupyterlab==4.6.3
+ipykernel==7.3.0
+matplotlib==3.11.1
+pytest==9.1.1

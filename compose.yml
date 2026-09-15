@@ -1,0 +1,33 @@
+services:
+  jupyter-notebook:
+    build: .
+    container_name: jupyter-notebook
+    ports:
+      - "127.0.0.1:8888:8888"
+    command:
+      - jupyter
+      - lab
+      - --ip=0.0.0.0
+      - --port=8888
+      - --no-browser
+      - --allow-root
+      - --ServerApp.token=
+      - --ServerApp.password=
+      - --ServerApp.disable_check_xsrf=True
+    volumes:
+      # Mount the whole repository so notebooks, code, and outputs stay editable locally.
+      - ./:/workspace
+      # Keep runtime caches outside /workspace so Docker does not create a host .cache mountpoint.
+      - ./cache:/cache
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - XDG_CACHE_HOME=/cache
+      - TORCH_HOME=/cache/torch
+      - PIP_CACHE_DIR=/cache/pip
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
